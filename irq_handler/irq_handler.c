@@ -34,9 +34,9 @@ void tasklet_handler(unsigned long data)
 
 DECLARE_TASKLET(my_tasklet, tasklet_handler, 0x55aa);
 
-static irqreturn_t dummy_int(int irq, void *dev_id)
+static irqreturn_t dummy_isr(int irq, void *dev_id)
 {
-	printk("dummy_int: irq = %x\n", irq);
+	printk("dummy_isr: irq = %x\n", irq);
 	tasklet_schedule(&my_tasklet);
 
 	/* IRQ_NONE = Not handled, IRQ_HANDLED = handled */
@@ -51,7 +51,7 @@ static int __init irq_handler_init(void)
 
 	/* and then initialize ISR */
 	dummy_dev = 0x1025;
-	if (request_irq(irqn, dummy_int, IRQF_SHARED, "dummy", &dummy_dev)) {
+	if (request_irq(irqn, dummy_isr, IRQF_SHARED, "dummy", &dummy_dev)) {
 		printk(KERN_ERR "irq_handler: fail to register IRQ %d\n", irqn);
 		return -EIO;
 	}
