@@ -1,5 +1,5 @@
 /*
- *  Dummy irq handler
+ *  Dummy irq handler + tasklet
  *
  *  Copyright (C) 2016 Alex Hung <alex.hung@canonical.com>
  *
